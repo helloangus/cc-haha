@@ -480,6 +480,7 @@ function inspectMacosArtifacts(rootDir: string, report: PackageSmokeReport, opti
   addPresenceCheck(report, rootDir, 'macOS Info.plist', join(contentsDir, 'Info.plist'))
   addPresenceCheck(report, rootDir, 'macOS app executable', join(contentsDir, 'MacOS', report.productName))
   addPresenceCheck(report, rootDir, 'macOS app.asar', join(resourcesDir, 'app.asar'))
+  addPresenceCheck(report, rootDir, 'macOS unpacked H5 shell', join(unpackedDir, 'dist', 'index.html'))
   addInstalledUpdateMetadataCheck(
     report,
     rootDir,

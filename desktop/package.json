@@ -9,6 +9,7 @@
     "productName": "Claude Code Haha",
     "asar": true,
     "asarUnpack": [
+      "dist/**",
       "node_modules/node-pty/**",
       "src-tauri/binaries/**"
     ],

@@ -256,6 +256,20 @@ describe('remote H5 auth and CORS integration', () => {
     await expect(response.text()).resolves.toContain('Mapped H5 Shell')
   })
 
+  test('finds Electron packaged H5 resources from app.asar.unpacked when the sidecar points at app.asar', async () => {
+    const asarDistDir = path.join(tmpDir, 'Fake.app', 'Contents', 'Resources', 'app.asar', 'dist')
+    const unpackedDistDir = path.join(tmpDir, 'Fake.app', 'Contents', 'Resources', 'app.asar.unpacked', 'dist')
+    process.env.CLAUDE_H5_DIST_DIR = asarDistDir
+
+    await fs.mkdir(unpackedDistDir, { recursive: true })
+    await fs.writeFile(path.join(unpackedDistDir, 'index.html'), 'Electron H5 Shell', 'utf-8')
+
+    const response = await fetch(`${baseUrl}/`)
+
+    expect(response.status).toBe(200)
+    await expect(response.text()).resolves.toContain('Electron H5 Shell')
+  })
+
   test('allows /api/status by default without H5 token or Anthropic key', async () => {
     const response = await fetch(`${baseUrl}/api/status`)
 

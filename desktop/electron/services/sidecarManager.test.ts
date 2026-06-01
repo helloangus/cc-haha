@@ -40,18 +40,18 @@ describe('Electron sidecar manager', () => {
     expect(plan.env.CLAUDE_H5_DIST_DIR).toBe(path.join('/app/desktop', 'dist'))
   })
 
-  it('can keep sidecar binaries unpacked while pointing app-root at app.asar', () => {
+  it('can keep sidecar binaries and H5 assets unpacked while pointing app-root at app.asar', () => {
     const plan = createServerPlan({
       desktopRoot: '/Applications/App.app/Contents/Resources/app.asar.unpacked',
       appRoot: '/Applications/App.app/Contents/Resources/app.asar',
-      h5DistDir: '/Applications/App.app/Contents/Resources/app.asar/dist',
+      h5DistDir: '/Applications/App.app/Contents/Resources/app.asar.unpacked/dist',
       port: 49321,
       env: {},
     })
 
     expect(plan.command).toContain('/Applications/App.app/Contents/Resources/app.asar.unpacked/src-tauri/binaries/claude-sidecar-')
     expect(plan.args).toContain('/Applications/App.app/Contents/Resources/app.asar')
-    expect(plan.env.CLAUDE_H5_DIST_DIR).toBe('/Applications/App.app/Contents/Resources/app.asar/dist')
+    expect(plan.env.CLAUDE_H5_DIST_DIR).toBe('/Applications/App.app/Contents/Resources/app.asar.unpacked/dist')
   })
 
   it('passes portable config and adapter server URL through the sidecar env', () => {

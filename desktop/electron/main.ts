@@ -84,7 +84,7 @@ function getServerRuntime() {
   serverRuntime ??= new ElectronServerRuntime({
     desktopRoot: unpackedRoot(),
     appRoot: appRoot(),
-    h5DistDir: path.join(appRoot(), 'dist'),
+    h5DistDir: path.join(unpackedRoot(), 'dist'),
   })
   return serverRuntime
 }
