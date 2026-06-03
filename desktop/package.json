@@ -33,7 +33,12 @@
         "dmg",
         "zip"
       ],
-      "icon": "src-tauri/icons/icon.icns"
+      "icon": "src-tauri/icons/icon.icns",
+      "hardenedRuntime": true,
+      "gatekeeperAssess": false,
+      "entitlements": "build/entitlements.mac.plist",
+      "entitlementsInherit": "build/entitlements.mac.inherit.plist",
+      "notarize": true
     },
     "win": {
       "target": "nsis",

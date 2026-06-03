@@ -113,6 +113,10 @@ echo "[build-macos-arm64] Cleaning empty dmg-builder cache directories..."
 BUILDER_ARGS=(bunx electron-builder --mac "${MAC_TARGET_ARRAY[@]}" --arm64 --publish never)
 if [[ "${SIGN_BUILD:-0}" != "1" ]]; then
   export CSC_IDENTITY_AUTO_DISCOVERY=false
+  # package.json sets mac.notarize=true for the signed CI release path. A local
+  # unsigned build has no Developer ID credentials, so explicitly disable
+  # notarization here to keep `electron:package` working without an Apple account.
+  BUILDER_ARGS+=(-c.mac.notarize=false)
 fi
 if [[ "$#" -gt 0 ]]; then
   BUILDER_ARGS+=("$@")
